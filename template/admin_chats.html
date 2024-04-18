@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat List</title>
+    <style>
+      /* Chat list styling */
+.chat-list-container {
+    background-color: #f8f8f8;
+    border-right: 1px solid #ccc;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.chat-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.chat-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.chat-list li:hover {
+    background-color: #e6e6e6;
+}
+
+/* Chat messages styling */
+.chat-messages-container {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.chat-messages {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.chat-messages li {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+/* Message input styling */
+.message-input-container {
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+}
+
+.message-input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.send-button {
+    padding: 8px 20px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+ <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .chat-container {
+            width: 400px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .chat-messages {
+            padding: 10px;
+            overflow-y: scroll;
+            height: 300px;
+        }
+        .message {
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+        .message.from-me {
+            background-color: #d6eef8;
+            text-align: right;
+        }
+        .message.from-others {
+            background-color: #e2f7cb;
+        }
+        .chat-input {
+            width: calc(100% - 80px);
+            padding: 10px;
+            border: none;
+            border-top: 1px solid #ccc;
+            resize: none;
+        }
+        .chat-input:focus {
+            outline: none;
+        }
+        .send-button {
+            width: 80px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-list-container">
+        <ul class="chat-list">
+             {% for user in distinct_users %}
+            <li><a href="/view_user_chat/{{user.user_id}}">User Name: {{ user.user__name  }}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
+{% if g %}
+     <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            {% for i in g%}
+            <p>{{i.text}}</p>
+            {% endfor %}
+        </div>
+          <div class="reply-messages" id="reply-messages" style="background-color:green;">
+
+        </div>
+        <div style="display: flex;">
+            <input type="hidden" name="csrfmiddlewaretoken" id="csrf-token" value="{% csrf_token %}">
+
+            <textarea class="chat-input" id="chat-input" placeholder="Type your message..."></textarea>
+            <button class="send-button" onclick="sendMessage();">Send</button>
+        </div>
+    </div>
+{% endif %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    function sendMessage(){
+        var chat_input = document.getElementById('chat-input');
+        var reply_messages = document.getElementById('reply-messages');
+        var message = chat_input.value; // Get the value of the textarea
+
+        // Create a new div element to contain the message
+        var newMessage = document.createElement('div');
+        newMessage.textContent = message;
+
+        // Append the new message to the chat messages container
+        reply_messages.appendChild(newMessage);
+
+        // Clear the textarea after sending the message
+        chat_input.value = "";
+
+        // Make an AJAX request
+        $.ajax({
+            url: "/send_message1/",
+            method: "GET", // Assuming you want to send data via POST method
+            data: {"g":{{g}},"msg": message, }
+            success: function(response){
+                // Handle success response
+                console.log("Message sent successfully!");
+                // You can perform any additional actions you need upon success, such as updating UI, showing a confirmation message, etc.
+            },
+            error: function(xhr, status, error){
+                // Handle error
+                console.error("Error sending message:", error);
+                // You can perform any actions you need upon error, such as showing an error message, logging the error, etc.
+            }
+        });
+    }
+</script>
+</body>
+</html>

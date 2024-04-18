@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include 'side_bar.html'%}
+    <style>
+           html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: url("https://images.unsplash.com/photo-1485802007047-7774de7208e5?dpr=1&auto=compress,format&fit=crop&w=1800&h") no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Droid Serif', serif;
+}
+#container {
+    background: rgba(3, 3, 55, 0.5);
+    width: 18.75rem;
+    height: 32rem;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+
+
+            input[type=date],input[type=text],input[type=email],input[type=password],textarea,select
+{
+
+	border-radius:15px;
+	width:400px;
+	height:30px;
+}
+input[type=radio]
+    {
+       width:30px;
+	   height:10px;
+    }
+label
+{
+	color:white;
+    	font-weight:bold;
+    font-size: 20px;
+}
+input[type=submit],input[type=reset]
+{
+	background-color:none;
+	color:black;
+	border:none;
+	border-radius:30px;
+	height:30px;
+	width:80px;
+	font-weight:bold;
+	margin-right:20px;
+	margin-top:10px;
+	position:relative;
+	left:400px;
+}
+    .s1{
+        position: absolute;
+right: 150px;
+    top: 600px;
+        transform: translate(-50%,-50%);
+        width: 600px;
+        height: 800px;
+    border-radius:10px;
+        box-sizing: content-box;
+        background-color: none;
+       color:black;
+    }
+input[type=submit]:hover,input[type=reset]:hover
+{
+	background-color:none;
+}
+table
+{
+	height:700px;
+}
+
+
+    </style>
+</head>
+<body>
+<center>
+    <div style="position:relative;border:groove;width:800px;height:850px;top:70px;left:50px;"><br>
+<h1 style="position:relative;color:red;" > <i><u>HURRICANE  DETAILS</u></i></h1>
+    <div id="err" style="color: red;height: 20px"></div>
+    <br>
+    <br>
+        <form action="/save_hurricane/" method="POST">{% csrf_token %}
+
+<table>
+
+
+<tr>
+<td>
+<label>Hurricane Name:</label></td>
+<td><input type="text" name="hurricane" onkeypress="return verifyText(event,'err')" required></td></tr>
+<tr>
+<td>
+<label>Date:</label></td>
+<td><input type="text" name="date" onkeypress="return verifyText(event,'err')" required></td></tr>
+    <tr>
+<td>
+<label>Location:</label></td>
+<td><input type="text" name="location" onkeypress="return verifyText(event,'err')" required></td></tr>
+    <td>
+<label>Country:</label></td>
+<td><input type="text" name="country" onkeypress="return verifyText(event,'err')" required></td></tr>
+<td>
+<label>Wind speed & category:</label></td>
+<td><input type="text" name="wind_speed" required>
+</td></tr>
+    <td>
+<label>Storm surge & rainfall:</label></td>
+<td><input type="text" name="surge" required></td></tr>
+    <td>
+<label>Affected area:</label></td>
+<td><input type="text" name="area" required></td></tr>
+<tr>
+<td>
+<label>Injuries:</label></td>
+<td><input type="text" name="injuries" onkeypress="return verifyText(event,'err')" required></td></tr>
+<tr>
+<td>
+<label>Structural damage:</label></td>
+<td><input type="text" name="damage" onkeypress="return verifyText(event,'err')" required></td></tr>
+    <tr>
+<td>
+<label>Shelter information:</label></td>
+<td><input type="text" name="shelter" required></td>
+</tr>
+    <tr>
+<td>
+<label>Relief effort:</label></td>
+<td><input type="text" name="relief"   required ></td></tr>
+    <tr>
+<td>
+<label>Updates & changes:</label></td>
+<td><input type="text" name="update"   required ></td></tr>
+    <td>
+<label>Sources & reference:</label></td>
+<td><input type="text" name="source"   required ></td></tr>
+
+
+    <center><tr>
+<td>
+<input type="submit" name="submit1" value="ADD">
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input TYPE="RESET" NAME="cancel" VALUE="CANCEL"></td></tr></center>
+</table>
+</form>
+</center>
+</body>
+</html>

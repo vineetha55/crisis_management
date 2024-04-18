@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include 'side_bar.html'%}
+    <style>
+               input[type=date],input[type=text],input[type=email],input[type=password],textarea,select
+{
+
+	border-radius:20px;
+	width:400px;
+	height:30px;
+}
+input[type=radio]
+    {
+       width:30px;
+	   height:10px;
+    }
+label
+{
+	color:white;
+    	font-weight:bold;
+    font-size: 20px;
+}
+input[type=submit],input[type=reset]
+{
+	background-color:green;
+	color:white;
+	border:none;
+	border-radius:30px;
+	height:30px;
+	width:80px;
+	font-weight:bold;
+	margin-right:20px;
+	margin-top:20px;
+	position:relative;
+	left:200px;
+}
+    .s1{
+        position: absolute;
+right: 150px;
+    top: 600px;
+        transform: translate(-50%,-50%);
+        width: 600px;
+        height: 800px;
+    border-radius:10px;
+        box-sizing: content-box;
+        background-color: green;
+       color:black;
+    }
+input[type=submit]:hover,input[type=reset]:hover
+{
+	background-color:yellow;
+}
+table
+{
+	height:700px;
+}
+
+    </style>
+</head>
+<body>
+<center>
+    <div style="position:relative;border:groove;width:800px;height:850px;top:70px;left:50px;"><br>
+<h1 style="position:relative;color:brown;" > <i><u>FLOOD  DETAILS</u></i></h1>
+    <div id="err" style="color: red;height: 20px"></div>
+    <br>
+    <br>
+        <form action="/save_flood/" method="POST">{% csrf_token %}
+
+<table>
+
+
+<tr>
+<td>
+<label> Name:</label></td>
+<td><input type="text" name="name" onkeypress="return verifyText(event,'err')" required></td></tr>
+<tr>
+<td>
+<label>Date:</label></td>
+<td><input type="text" name="date" onkeypress="return verifyText(event,'err')" required></td></tr>
+    <tr>
+<td>
+<label>Location:</label></td>
+<td><input type="text" name="location" onkeypress="return verifyText(event,'err')" required></td></tr>
+    <td>
+<label>Country:</label></td>
+<td><input type="text" name="country" onkeypress="return verifyText(event,'err')" required></td></tr>
+<td>
+<label>Severity level:</label></td>
+<td><input type="text" name="severity" required>
+</td></tr>
+    <td>
+<label>River level & rainfall:</label></td>
+<td><input type="text" name="river" required></td></tr>
+    <td>
+<label>Affected area:</label></td>
+<td><input type="text" name="area" required></td></tr>
+<tr>
+<td>
+<label>Injuries:</label></td>
+<td><input type="text" name="injuries" onkeypress="return verifyText(event,'err')" required></td></tr>
+<tr>
+<td>
+<label>Infrastructure damage:</label></td>
+<td><input type="text" name="infra" onkeypress="return verifyText(event,'err')" required></td></tr>
+    <tr>
+<td>
+<label>Evacuations & rescues:</label></td>
+<td><input type="text" name="rescue" required></td>
+</tr>
+    <tr>
+<td>
+<label>Relief effort:</label></td>
+<td><input type="text" name="relief"   required ></td></tr>
+    <tr>
+<td>
+<label>Updates & changes:</label></td>
+<td><input type="text" name="update"   required ></td></tr>
+    <td>
+<label>Sources & reference:</label></td>
+<td><input type="text" name="source"   required ></td></tr>
+
+
+    <center><tr>
+<td>
+<input type="submit" name="submit1" value="ADD">
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<input TYPE="RESET" NAME="cancel" VALUE="CANCEL"></td></tr></center>
+</table>
+        </form>
+</center>
+</body>
+</html>
